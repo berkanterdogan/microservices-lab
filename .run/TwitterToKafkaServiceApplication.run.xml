@@ -1,0 +1,21 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="TwitterToKafkaServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="twitter-to-kafka-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.berkanterdogan.microservices.lab.twitter.to.kafka.service.TwitterToKafkaServiceApplication" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <envs>
+      <env name="TWITTER4J_OAUTH_CONSUMER_KEY" value="**********" />
+      <env name="TWITTER4J_OAUTH_CONSUMER_SECRET" value="**********" />
+      <env name="TWITTER4J_OAUTH_ACCESS_TOKEN" value="**********" />
+      <env name="TWITTER4J_OAUTH_ACCESS_TOKEN_SECRET" value="**********" />
+      <env name="TWITTER4J_DEBUG" value="true" />
+      <env name="MOCK_ENABLED" value="true" />
+      <env name="TWITTER4J_ENABLED" value="false" />
+      <env name="LOGGING_LEVEL_ROOT" value="info" />
+      <env name="LOGGING_LEVEL_COM_BERKANTERDOGAN_MICROSERVICES_LAB" value="info" />
+    </envs>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

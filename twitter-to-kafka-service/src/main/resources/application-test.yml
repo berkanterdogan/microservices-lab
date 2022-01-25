@@ -1,0 +1,7 @@
+twitter-to-kafka-service:
+  twitter4j-configs:
+    oauth:
+      consumer-key: test
+      consumer-secret: test
+      access-token: test
+      access-token-secret: test
