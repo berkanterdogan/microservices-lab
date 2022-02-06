@@ -16,7 +16,7 @@ If you don't have an twitter developer account, you can stream mock tweets. Ther
   - **KAFKA_CONFIG_SCHEMA_REGISTRY_URL** -> The value of this is the url of our schema registry. It's default value "**http://localhost:8081**".
   - **KAFKA_CONFIG_TOPIC_NAME** -> The value of this is the name of topic which Tweets as messages will be produced. It's default value is "**twitter-topic**".
   
-- There is docker-compose configurations about the project in the docker-compose folder. Check files in this folder.
+- There are docker-compose configurations about the project in the docker-compose folder. Check files in this folder.
 Before you run the project, you run `mvn clean install` command to build the project. After this command is completed successfully, 
 a docker image of this project is created. You can check the image with `docker image ls` command. 
 Now, you run `docker-compose up` command on the docker-compose folder and then we will see all containers started.

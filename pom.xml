@@ -32,7 +32,7 @@
 		<twitter4j.version>4.0.7</twitter4j.version>
 		<lombok.version>1.18.22</lombok.version>
 		<avro.version>1.10.0</avro.version>
-		<kafka-avro-serializer.version>5.3.0</kafka-avro-serializer.version>
+		<kafka-avro-serializer.version>5.5.1</kafka-avro-serializer.version>
 	</properties>
 
 	<repositories>
