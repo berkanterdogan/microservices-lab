@@ -15,4 +15,8 @@ spring:
   security:
     user:
       name: ${SPRING_SECURITY_USER_NAME:config_server_user}
-      password: ${SPRING_SECURITY_USER_PASSWORD:config_Server_User_pwd19!}
+      password: ${SPRING_SECURITY_USER_PASSWORD:ENC(TiXQa2AbV2dkQx/UjiAWT4chFdhy5AJ74O0UuUi/UHsZL6OiSUnne06lx5kgAtlyc/dqSjJbPhMDb94+Tqd+YQ==)}
+
+jasypt:
+  encryptor:
+    password: ${JASYPT_ENCRYPTOR_PASSWORD:jspypt_Pwd351} # Remove the default value for real production applications! Set it as an environment variable.

@@ -15,7 +15,8 @@
       <env name="SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD" value="**********" />
       <env name="SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT_LABEL" value="master" />
       <env name="SPRING_SECURITY_USER_NAME" value="config_server_user" />
-      <env name="SPRING_SECURITY_USER_PASSWORD" value="config_Server_User_pwd19!" />
+      <env name="SPRING_SECURITY_USER_PASSWORD" value="ENC(TiXQa2AbV2dkQx/UjiAWT4chFdhy5AJ74O0UuUi/UHsZL6OiSUnne06lx5kgAtlyc/dqSjJbPhMDb94+Tqd+YQ==)" />
+      <env name="JASYPT_ENCRYPTOR_PASSWORD" value="jspypt_Pwd351!" />
     </envs>
     <method v="2">
       <option name="Make" enabled="true" />
