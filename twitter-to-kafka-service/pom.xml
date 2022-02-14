@@ -11,10 +11,6 @@
 
     <artifactId>twitter-to-kafka-service</artifactId>
 
-    <properties>
-
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.berkanterdogan.microservices.lab</groupId>
@@ -31,6 +27,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

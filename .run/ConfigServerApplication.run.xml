@@ -1,0 +1,24 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ConfigServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <module name="config-server" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.berkanterdogan.microservices.lab.config.server.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.berkanterdogan.microservices.lab.config.server.ConfigServerApplication" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <envs>
+      <env name="LOGGING_LEVEL_ROOT" value="info" />
+      <env name="SPRING_CLOUD_CONFIG_SERVER_GIT_USERNAME" value="**********" />
+      <env name="SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD" value="**********" />
+      <env name="SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT_LABEL" value="master" />
+      <env name="SPRING_SECURITY_USER_NAME" value="config_server_user" />
+      <env name="SPRING_SECURITY_USER_PASSWORD" value="config_Server_User_pwd19!" />
+    </envs>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

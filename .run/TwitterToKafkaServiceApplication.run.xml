@@ -13,6 +13,9 @@
       <env name="TWITTER4J_ENABLED" value="false" />
       <env name="LOGGING_LEVEL_ROOT" value="info" />
       <env name="LOGGING_LEVEL_COM_BERKANTERDOGAN_MICROSERVICES_LAB" value="info" />
+      <env name="SPRING_CLOUD_CONFIG_USERNAME" value="config_server_user" />
+      <env name="SPRING_CLOUD_CONFIG_PASSWORD" value="config_Server_User_pwd19!" />
+      <env name="SPRING_CLOUD_CONFIG_URI" value="http://localhost:8888" />
     </envs>
     <method v="2">
       <option name="Make" enabled="true" />
