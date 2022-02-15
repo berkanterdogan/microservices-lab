@@ -7,5 +7,9 @@ spring:
     config:
       name: twitter-to-kafka-service, config-client
       username: ${SPRING_CLOUD_CONFIG_USERNAME:config_server_user}
-      password: ${SPRING_CLOUD_CONFIG_PASSWORD:config_Server_User_pwd19!}
+      default-password: '{cipher}cfe33c98555df6d45805878b444c412e076f27413b9fff390b0bd481cdbb36787ed2cfd6996cec90672dc8b80e76a220'
+      password: ${SPRING_CLOUD_CONFIG_PASSWORD:${spring.cloud.config.default-password}} # Remove the default value for real production applications! Set it as an environment variable.
       uri: ${SPRING_CLOUD_CONFIG_URI:http://localhost:8888} #It's default value.
+
+encrypt:
+  key: ${ENCRYPT_KEY:jce_Pwd351!} # Remove the default value for real production applications! Set it as an environment variable.

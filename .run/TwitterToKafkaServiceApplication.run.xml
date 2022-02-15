@@ -14,8 +14,9 @@
       <env name="LOGGING_LEVEL_ROOT" value="info" />
       <env name="LOGGING_LEVEL_COM_BERKANTERDOGAN_MICROSERVICES_LAB" value="info" />
       <env name="SPRING_CLOUD_CONFIG_USERNAME" value="config_server_user" />
-      <env name="SPRING_CLOUD_CONFIG_PASSWORD" value="config_Server_User_pwd19!" />
+      <env name="SPRING_CLOUD_CONFIG_PASSWORD" value="{cipher}cfe33c98555df6d45805878b444c412e076f27413b9fff390b0bd481cdbb36787ed2cfd6996cec90672dc8b80e76a220" />
       <env name="SPRING_CLOUD_CONFIG_URI" value="http://localhost:8888" />
+      <env name="ENCRYPT_KEY" value="jce_Pwd351!" />
     </envs>
     <method v="2">
       <option name="Make" enabled="true" />

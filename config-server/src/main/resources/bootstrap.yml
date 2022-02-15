@@ -15,4 +15,8 @@ spring:
   security:
     user:
       name: ${SPRING_SECURITY_USER_NAME:config_server_user}
-      password: ${SPRING_SECURITY_USER_PASSWORD:config_Server_User_pwd19!}
+      default-password: '{cipher}ba16e20497f1f324599ef16f2093fffba91458c1c6f4c6ea078fb4c59a7976a07c39198a5341cdd51b103515b12f0990' # Remove the default value for real production applications! Set it as an environment variable.
+      password: ${SPRING_SECURITY_USER_PASSWORD:${spring.security.user.default-password}}
+
+encrypt:
+  key: ${ENCRYPT_KEY:jce_Pwd351!} # Remove the default value for real production applications! Set it as an environment variable.
