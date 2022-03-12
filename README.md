@@ -13,7 +13,6 @@ If you don't have an twitter developer account, you can stream mock tweets. Ther
   - **TWITTER4J_OAUTH_ACCESS_TOKEN** -> The value of this is our OAuth access token for Twitter Developer Account. There is no a default value for this environment variable.
   - **TWITTER4J_OAUTH_ACCESS_TOKEN_SECRET** -> The value of this is our OAuth access token secret for Twitter Developer Account. There is no a default value for this environment variable.
   - **KAFKA_CONFIG_BOOTSTRAP_SERVERS** -> The value of this your Kafka bootstrap servers. It's default value is "**localhost:19092, localhost:29092, localhost:39092**".
-  - **KAFKA_CONFIG_SCHEMA_REGISTRY_URL** -> The value of this is the url of our schema registry. It's default value "**http://localhost:8081**".
   - **KAFKA_CONFIG_TOPIC_NAME** -> The value of this is the name of topic which Tweets as messages will be produced. It's default value is "**twitter-topic**".
   
 - There are docker-compose configurations about the project in the docker-compose folder. Check files in this folder.

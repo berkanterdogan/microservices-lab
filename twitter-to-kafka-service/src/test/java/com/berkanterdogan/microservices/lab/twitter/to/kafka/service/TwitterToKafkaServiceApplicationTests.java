@@ -1,6 +1,6 @@
 package com.berkanterdogan.microservices.lab.twitter.to.kafka.service;
 
-import com.berkanterdogan.microservices.lab.kafka.model.avro.TwitterAvroModel;
+import com.berkanterdogan.microservices.lab.kafka.model.TwitterKafkaMessageModelDto;
 import com.berkanterdogan.microservices.lab.kafka.producer.service.KafkaProducer;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -22,17 +22,16 @@ import java.time.ZoneOffset;
 @RequiredArgsConstructor(onConstructor_={@Autowired})
 public class TwitterToKafkaServiceApplicationTests {
 
-    private final KafkaProducer<Long, TwitterAvroModel> kafkaProducer;
+    private final KafkaProducer<Long, TwitterKafkaMessageModelDto> kafkaProducer;
 
     @Test
     public void testMessageProducementToKafka() throws InterruptedException {
-        TwitterAvroModel twitterAvroModel = TwitterAvroModel.newBuilder()
-                .setId(12345L)
-                .setUserId(1234L)
-                .setCreatedAt(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC))
-                .setText("TEST")
-                .build();
-        kafkaProducer.send("twitter-topic", twitterAvroModel.getUserId(), twitterAvroModel);
+        TwitterKafkaMessageModelDto twitterKafkaMessageModelDto = new TwitterKafkaMessageModelDto();
+        twitterKafkaMessageModelDto.setId(12345L);
+        twitterKafkaMessageModelDto.setUserId(1234L);
+        twitterKafkaMessageModelDto.setCreatedAt(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+        twitterKafkaMessageModelDto.setText("TEST");
+        kafkaProducer.send("twitter-topic", twitterKafkaMessageModelDto.getUserId(), twitterKafkaMessageModelDto);
         Thread.sleep(20000L);
     }
 }

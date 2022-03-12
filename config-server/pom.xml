@@ -39,25 +39,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <image>
-                        <name>${project.groupId}/config.server:${project.version}</name>
-                    </image>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <!--
-                                 To create docker image. It follows a layered approach
-                                 so, it prevents a single fat jar and uses caching during image update.
-                                 This is achieved with the help of the cloud native buildpacks.
-                                 Check the buildpacks.io!
-                             -->
-                            <goal>build-image</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

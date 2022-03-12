@@ -10,13 +10,9 @@ import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.CreateTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.admin.TopicListing;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.retry.RetryContext;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.ClientResponse;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Collection;
 import java.util.List;
@@ -32,7 +28,6 @@ public class KafkaAdminClientImpl implements KafkaAdminClient {
     private final RetryConfigData retryConfigData;
     private final AdminClient adminClient;
     private final RetryTemplate retryTemplate;
-    private final WebClient webClient;
 
     @Override
     public void createTopics() {
@@ -67,19 +62,6 @@ public class KafkaAdminClientImpl implements KafkaAdminClient {
     }
 
     @Override
-    public void checkSchemaRegistry() {
-        int retryCount = 1;
-        Integer maxRetry = this.retryConfigData.getMaxAttempts();
-        Integer multiplier = this.retryConfigData.getMultiplier().intValue();
-        Long sleepTimeMs = this.retryConfigData.getSleepTimeMs();
-        while (!getSchemaRegistryStatus().is2xxSuccessful()) {
-            checkMaxRetry(retryCount++, maxRetry, "Reached max number of retry for checking if schema registry is up!");
-            sleep(sleepTimeMs);
-            sleepTimeMs *= multiplier;
-        }
-    }
-
-    @Override
     public Collection<TopicListing> getTopics() {
         Collection<TopicListing> topics;
         try {
@@ -89,21 +71,6 @@ public class KafkaAdminClientImpl implements KafkaAdminClient {
         }
 
         return topics;
-    }
-
-    private HttpStatus getSchemaRegistryStatus() {
-        HttpStatus result;
-        try {
-            result = this.webClient.method(HttpMethod.GET)
-                    .uri(this.kafkaConfigData.getSchemaRegistryUrl())
-                    .exchange()
-                    .map(ClientResponse::statusCode)
-                    .block();
-        } catch (Exception e) {
-            result = HttpStatus.SERVICE_UNAVAILABLE;
-        }
-
-        return result;
     }
 
     private void sleep(Long sleepTimeMs) {

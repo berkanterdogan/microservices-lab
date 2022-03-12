@@ -2,6 +2,9 @@ version: '3.7'
 services:
   twitter-to-kafka-service:
     image: ${GROUP_ID}/twitter.to.kafka.service:${SERVICE_VERSION:-latest}
+    build:
+      context: ../twitter-to-kafka-service
+      dockerfile: ../twitter-to-kafka-service/Dockerfile
     ports:
       - "5005:5005"
     volumes:
@@ -15,7 +18,6 @@ services:
       - "LOGGING_LEVEL_ROOT=info"
       - "KAFKA_CONFIG_TOPIC_NAME=twitter-topic"
       - "KAFKA_CONFIG_BOOTSTRAP_SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
-      - "KAFKA_CONFIG_SCHEMA_REGISTRY_URL=http://schema-registry:8081"
       - "MOCK_ENABLED=true"
       - "TWITTER4J_ENABLED=false"
       - "SPRING_CLOUD_CONFIG_USERNAME=${CONFIG_SERVER_USER_NAME}"
@@ -27,6 +29,9 @@ services:
 
   config-server:
     image: ${GROUP_ID}/config.server:${SERVICE_VERSION:-latest}
+    build:
+      context: ../config-server
+      dockerfile: ../config-server/Dockerfile
     ports:
       - "5006:5006"
 #      - "8888:8888"
@@ -40,6 +45,6 @@ services:
       - "SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT_LABEL=${CONFIG_SERVER_GIT_DEFAULT_LABEL}"
       - "SPRING_SECURITY_USER_NAME=${CONFIG_SERVER_USER_NAME}"
       - "SPRING_SECURITY_USER_PASSWORD=${CONFIG_SERVER_USER_PASSWORD}"
-      - "ENCRYPT_KEY=jce_Pwd351!"
+      - "ENCRYPT_KEY=${ENCRYPT_KEY}"
     networks:
       - ${GLOBAL_NETWORK:-services}

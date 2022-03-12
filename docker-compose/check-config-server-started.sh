@@ -15,4 +15,4 @@ while [[ ! $curlResult == "200" ]]; do
   curlResult=$(curl -s -o /dev/null -I -w "%{http_code}" http://config-server:8888/actuator/health)
 done
 
-./cnb/lifecycle/launcher
+java -jar /twitter-to-kafka-service-0.0.1-SNAPSHOT.jar
