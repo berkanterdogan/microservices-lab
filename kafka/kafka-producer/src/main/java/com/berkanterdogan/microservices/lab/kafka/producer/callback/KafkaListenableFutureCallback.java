@@ -1,7 +1,7 @@
 package com.berkanterdogan.microservices.lab.kafka.producer.callback;
 
-import com.berkanterdogan.microservices.lab.kafka.model.base.BaseKafkaMessageModelDto;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.util.concurrent.ListenableFutureCallback;
@@ -9,7 +9,7 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 import java.io.Serializable;
 
 @Slf4j
-public class KafkaListenableFutureCallback<K extends Serializable, V extends BaseKafkaMessageModelDto> implements ListenableFutureCallback<SendResult<K, V>> {
+public class KafkaListenableFutureCallback<K extends Serializable, V extends SpecificRecordBase> implements ListenableFutureCallback<SendResult<K, V>> {
 
     private final String topicName;
     private final K key;

@@ -23,6 +23,9 @@ public class KafkaStreamInitializer implements StreamInitializer {
     public void init() {
         log.info("Active profiles => " + Arrays.toString(environment.getActiveProfiles()));
         this.kafkaAdminClientImpl.createTopics();
+        if (!List.of(environment.getActiveProfiles()).contains("test")) {
+            this.kafkaAdminClientImpl.checkSchemaRegistry();
+        }
         log.info("Topics with name {} is ready for operations!", this.kafkaConfigData.getTopicNamesToCreate().toArray());
     }
 }

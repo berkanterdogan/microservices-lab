@@ -1,72 +1,81 @@
 version: '3.7'
 services:
   zookeeper:
-    image: zookeeper:${ZOOKEEPER_VERSION:-latest}
-    hostname: zoo1
+    image: confluentinc/cp-zookeeper:${KAFKA_VERSION}
+    hostname: zookeeper
     ports:
       - "2181:2181"
     environment:
-      ZOO_MY_ID: 1
-      ZOO_TICK_TIME: 2000
-      ZOO_INIT_LIMIT: 5
-      ZOO_SYNC_LIMIT: 2
-      ZOO_SERVERS: server.1=zoo1:2888:3888;2181
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: zookeeper:2888:3888
     networks:
       - ${GLOBAL_NETWORK:-kafka}
-
+  schema-registry:
+    image: confluentinc/cp-schema-registry:${KAFKA_VERSION}
+    hostname: schema-registry
+    depends_on:
+      - zookeeper
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: kafka-broker-1:9092,kafka-broker-2:9092,kafka-broker-3:9092
+      SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
+      SCHEMA_REGISTRY_DEBUG: 'true'
+    networks:
+      - ${GLOBAL_NETWORK:-kafka}
   kafka-broker-1:
-    image: wurstmeister/kafka:${WURSTMEISTER_KAFKA_VERSION}
+    image: confluentinc/cp-kafka:${KAFKA_VERSION}
     hostname: kafka-broker-1
     ports:
       - "19092:19092"
+    depends_on:
+      - zookeeper
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zoo1:2181
-      ALLOW_PLAINTEXT_LISTENER: yes
-      KAFKA_LISTENERS: PLAINTEXT://:9092,LISTENER_LOCAL://:19092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-1:9092,LISTENER_LOCAL://localhost:19092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_COMPRESSION_TYPE: producer
-    depends_on:
-      - zookeeper
     networks:
       - ${GLOBAL_NETWORK:-kafka}
-
   kafka-broker-2:
-    image: wurstmeister/kafka:${WURSTMEISTER_KAFKA_VERSION}
+    image: confluentinc/cp-kafka:${KAFKA_VERSION}
     hostname: kafka-broker-2
     ports:
       - "29092:29092"
+    depends_on:
+      - zookeeper
     environment:
       KAFKA_BROKER_ID: 2
-      KAFKA_ZOOKEEPER_CONNECT: zoo1:2181
-      ALLOW_PLAINTEXT_LISTENER: yes
-      KAFKA_LISTENERS: PLAINTEXT://:9092,LISTENER_LOCAL://:29092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-2:9092,LISTENER_LOCAL://localhost:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_COMPRESSION_TYPE: producer
-    depends_on:
-      - zookeeper
     networks:
       - ${GLOBAL_NETWORK:-kafka}
-
   kafka-broker-3:
-    image: wurstmeister/kafka:${WURSTMEISTER_KAFKA_VERSION}
+    image: confluentinc/cp-kafka:${KAFKA_VERSION}
     hostname: kafka-broker-3
     ports:
       - "39092:39092"
+    depends_on:
+      - zookeeper
     environment:
       KAFKA_BROKER_ID: 3
-      KAFKA_ZOOKEEPER_CONNECT: zoo1:2181
-      ALLOW_PLAINTEXT_LISTENER: yes
-      KAFKA_LISTENERS: PLAINTEXT://:9092,LISTENER_LOCAL://:39092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-3:9092,LISTENER_LOCAL://localhost:39092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_COMPRESSION_TYPE: producer
-    depends_on:
-      - zookeeper
     networks:
       - ${GLOBAL_NETWORK:-kafka}

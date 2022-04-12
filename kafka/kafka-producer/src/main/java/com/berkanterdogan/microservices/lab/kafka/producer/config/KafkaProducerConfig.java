@@ -2,31 +2,33 @@ package com.berkanterdogan.microservices.lab.kafka.producer.config;
 
 import com.berkanterdogan.microservices.lab.app.config.data.kafka.KafkaConfigData;
 import com.berkanterdogan.microservices.lab.app.config.data.kafka.KafkaProducerConfigData;
-import com.berkanterdogan.microservices.lab.kafka.model.TwitterKafkaMessageModelDto;
-import com.berkanterdogan.microservices.lab.kafka.model.serde.TwitterKafkaNessageModelDtoSeralizer;
 import lombok.RequiredArgsConstructor;
+import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.LongSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
 @Configuration
-public class KafkaProducerConfig {
+public class KafkaProducerConfig<K extends Serializable, V extends SpecificRecordBase> {
 
     private final KafkaConfigData kafkaConfigData;
     private final KafkaProducerConfigData kafkaProducerConfigData;
 
     @Bean
-    public Map<String, Object> commonKafkaProducerConfig() {
+    public Map<String, Object> producerConfig() {
         Map<String, Object> producerConfig = new HashMap<>();
         producerConfig.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, this.kafkaConfigData.getBootstrapServers());
+        producerConfig.put(this.kafkaConfigData.getSchemaRegistryUrlKey(), this.kafkaConfigData.getSchemaRegistryUrl());
+        producerConfig.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, this.kafkaProducerConfigData.getKeySerializerClass());
+        producerConfig.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, this.kafkaProducerConfigData.getValueSerializerClass());
         producerConfig.put(ProducerConfig.BATCH_SIZE_CONFIG, this.kafkaProducerConfigData.getBatchSize() * this.kafkaProducerConfigData.getBatchSizeBoostFactor());
         producerConfig.put(ProducerConfig.LINGER_MS_CONFIG, this.kafkaProducerConfigData.getLingerMs());
         producerConfig.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, this.kafkaProducerConfigData.getCompressionType());
@@ -38,12 +40,12 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<Long, TwitterKafkaMessageModelDto> producerFactoryForTwitterTopic() {
-        return new DefaultKafkaProducerFactory<>(commonKafkaProducerConfig(), new LongSerializer(), new TwitterKafkaNessageModelDtoSeralizer());
+    public ProducerFactory<K, V> producerFactory() {
+        return new DefaultKafkaProducerFactory<>(producerConfig());
     }
 
     @Bean
-    public KafkaTemplate<Long, TwitterKafkaMessageModelDto> kafkaTemplateForTwitterTopic() {
-        return new KafkaTemplate<>(producerFactoryForTwitterTopic());
+    public KafkaTemplate<K, V> kafkaTemplate() {
+        return new KafkaTemplate<>(producerFactory());
     }
 }

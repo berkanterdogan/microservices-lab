@@ -7,7 +7,7 @@ spring:
         git:
 #          uri: file:///YOUR_PATH//microservices-lab/config-server-repository
           uri: https://github.com/berkanterdogan/microservices-lab-spring-cloud-config-repository
-          default-label: ${SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT_LABEL:master}
+          default-label: ${SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT_LABEL:main}
           username: ${SPRING_CLOUD_CONFIG_SERVER_GIT_USERNAME}
           password: ${SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD}
           clone-on-start: true

@@ -13,7 +13,7 @@
       <env name="LOGGING_LEVEL_ROOT" value="info" />
       <env name="SPRING_CLOUD_CONFIG_SERVER_GIT_USERNAME" value="**********" />
       <env name="SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD" value="**********" />
-      <env name="SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT_LABEL" value="master" />
+      <env name="SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULT_LABEL" value="main" />
       <env name="SPRING_SECURITY_USER_NAME" value="config_server_user" />
       <env name="SPRING_SECURITY_USER_PASSWORD" value="{cipher}ba16e20497f1f324599ef16f2093fffba91458c1c6f4c6ea078fb4c59a7976a07c39198a5341cdd51b103515b12f0990" />
       <env name="ENCRYPT_KEY" value="jce_Pwd351!" />

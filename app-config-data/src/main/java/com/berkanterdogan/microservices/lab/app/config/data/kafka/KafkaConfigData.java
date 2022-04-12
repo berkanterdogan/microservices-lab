@@ -14,7 +14,9 @@ import java.util.List;
 public class KafkaConfigData {
 
     private String bootstrapServers;
-    private String twitterTopicName;
+    private String schemaRegistryUrlKey;
+    private String schemaRegistryUrl;
+    private String topicName;
     private List<String> topicNamesToCreate;
     private Integer numOfPartitions;
     private Short replicationFactor;

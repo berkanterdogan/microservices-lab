@@ -8,8 +8,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "kafka-consumer-config")
 public class KafkaConsumerConfigData {
-    private String twitterTopicConsumerGroupId;
+    private String keyDeserializer;
+    private String valueDeserializer;
+    private String consumerGroupId;
     private String autoOffsetReset;
+    private String specificAvroReaderKey;
+    private String specificAvroReader;
     private Boolean batchListener;
     private Boolean autoStartup;
     private Integer concurrencyLevel;

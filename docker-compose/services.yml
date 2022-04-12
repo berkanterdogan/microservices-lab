@@ -18,6 +18,7 @@ services:
       - "LOGGING_LEVEL_ROOT=info"
       - "KAFKA_CONFIG_TOPIC_NAME=twitter-topic"
       - "KAFKA_CONFIG_BOOTSTRAP_SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
+      - "KAFKA_CONFIG_SCHEMA_REGISTRY_URL=http://schema-registry:8081"
       - "MOCK_ENABLED=true"
       - "TWITTER4J_ENABLED=false"
       - "SPRING_CLOUD_CONFIG_USERNAME=${CONFIG_SERVER_USER_NAME}"

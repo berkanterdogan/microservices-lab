@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<modules>
 		<module>twitter-to-kafka-service</module>
-        <module>app-config-data</module>
+		<module>app-config-data</module>
 		<module>kafka</module>
 		<module>common-config</module>
-        <module>config-server</module>
-    </modules>
+		<module>config-server</module>
+	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -29,11 +29,13 @@
 		<spring-boot.version>2.3.4.RELEASE</spring-boot.version>
 		<spring-cloud.version>2.2.6.RELEASE</spring-cloud.version>
 		<spring-cloud-dependencies.version>Hoxton.SR9</spring-cloud-dependencies.version>
-		<spring-kafka.version>2.6.2</spring-kafka.version>
+		<spring-kafka.version>2.8.4</spring-kafka.version>
 		<spring-retry.version>1.3.0</spring-retry.version>
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 		<twitter4j.version>4.0.7</twitter4j.version>
 		<lombok.version>1.18.22</lombok.version>
+		<avro.version>1.10.0</avro.version>
+		<kafka-avro-serializer.version>7.0.1</kafka-avro-serializer.version>
 	</properties>
 
 	<repositories>
@@ -140,6 +142,34 @@
 				<version>${lombok.version}</version>
 				<scope>provided</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.apache.avro</groupId>
+				<artifactId>avro</artifactId>
+				<version>${avro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.confluent</groupId>
+				<artifactId>kafka-avro-serializer</artifactId>
+				<version>${kafka-avro-serializer.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-log4j12</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>log4j</groupId>
+						<artifactId>log4j</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>io.swagger</groupId>
+						<artifactId>swagger-annotations</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>io.swagger</groupId>
+						<artifactId>swagger-core</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -157,7 +187,7 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-<!--					This plugin helps to make the project runnable, start the app, creates build info and create docker image-->
+					<!--					This plugin helps to make the project runnable, start the app-->
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
 					<version>${spring-boot.version}</version>
