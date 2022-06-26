@@ -1,6 +1,6 @@
 #FROM amazoncorretto:11.0.15
 
-#https://github.com/corretto/corretto-docker/blob/main/11/jdk/debian/Dockerfile
+#https://github.com/corretto/corretto-docker/blob/main/11/jdk/debian/Dockerfile:
 FROM debian:buster-slim
 
 ARG version=11.0.15.9-1
@@ -29,5 +29,5 @@ ENV LANG C.UTF-8
 ENV JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto
 
 MAINTAINER berkanterdogan
-COPY target/twitter-to-kafka-service-0.0.1-SNAPSHOT.jar twitter-to-kafka-service-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java","-jar","/twitter-to-kafka-service-0.0.1-SNAPSHOT.jar"]
+COPY target/kafka-to-elastic-service-0.0.1-SNAPSHOT.jar kafka-to-elastic-service-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","/kafka-to-elastic-service-0.0.1-SNAPSHOT.jar"]

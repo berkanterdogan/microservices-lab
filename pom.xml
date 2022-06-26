@@ -8,6 +8,8 @@
 		<module>kafka</module>
 		<module>common-config</module>
 		<module>config-server</module>
+        <module>kafka-to-elastic-service</module>
+        <module>elastic</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -35,6 +37,7 @@
 		<twitter4j.version>4.0.7</twitter4j.version>
 		<lombok.version>1.18.22</lombok.version>
 		<avro.version>1.10.0</avro.version>
+		<elasticsearch.version>7.9.1</elasticsearch.version>
 		<kafka-avro-serializer.version>7.0.1</kafka-avro-serializer.version>
 	</properties>
 
@@ -73,8 +76,33 @@
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.berkanterdogan.microservices.lab</groupId>
+				<artifactId>kafka-consumer</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.berkanterdogan.microservices.lab</groupId>
+				<artifactId>elastic-model</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.berkanterdogan.microservices.lab</groupId>
+				<artifactId>elastic-config</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.berkanterdogan.microservices.lab</groupId>
+				<artifactId>elastic-index-client</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
 				<version>${spring-boot.version}</version>
 			</dependency>
 			<dependency>
@@ -132,6 +160,11 @@
 				<version>${spring-boot.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.twitter4j</groupId>
 				<artifactId>twitter4j-stream</artifactId>
 				<version>${twitter4j.version}</version>
@@ -146,6 +179,16 @@
 				<groupId>org.apache.avro</groupId>
 				<artifactId>avro</artifactId>
 				<version>${avro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.elasticsearch</groupId>
+				<artifactId>elasticsearch</artifactId>
+				<version>${elasticsearch.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.elasticsearch.client</groupId>
+				<artifactId>elasticsearch-rest-high-level-client</artifactId>
+				<version>${elasticsearch.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.confluent</groupId>
