@@ -1,0 +1,26 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="KafkaToElasticServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" />
+    <envs>
+      <env name="ELASTIC_CONNECTION_TIMEOUT_MS" value="5000" />
+      <env name="ELASTIC_CONNECTION_URL" value="http://localhost:9200" />
+      <env name="ELASTIC_INDEX_NAME" value="twitter-index" />
+      <env name="ELASTIC_SOCKET_TIMEOUT_MS" value="30000" />
+      <env name="ENCRYPT_KEY" value="jce_Pwd351!" />
+      <env name="KAFKA_CONFIG_BOOTSTRAP_SERVERS" value="localhost:19092, localhost:29092, localhost:39092" />
+      <env name="KAFKA_CONFIG_SCHEMA_REGISTRY_URL" value="http://localhost:8081" />
+      <env name="KAFKA_CONFIG_TOPIC_NAME" value="twitter-topic" />
+      <env name="LOGGING_LEVEL_COM_BERKANTERDOGAN_MICROSERVICES_LAB" value="info" />
+      <env name="LOGGING_LEVEL_ROOT" value="info" />
+      <env name="SPRING_CLOUD_CONFIG_PASSWORD" value="{cipher}4127c1bc34e872fdd3264abfeeac354ae7d01f278d85451f319379d2513b31318b54c8afecb6568674a7c594e3d0d59f" />
+      <env name="SPRING_CLOUD_CONFIG_URI" value="http://localhost:8888" />
+      <env name="SPRING_CLOUD_CONFIG_USERNAME" value="config_server_user" />
+      <env name="ELASTIC_USE_REPOSITORY" value="true" />
+    </envs>
+    <module name="kafka-to-elastic-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.berkanterdogan.microservices.lab.kafka.to.elastic.service.KafkaToElasticServiceApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
