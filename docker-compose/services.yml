@@ -1,7 +1,8 @@
 version: '3.7'
 services:
   twitter-to-kafka-service:
-    image: ${GROUP_ID}/twitter.to.kafka.service:${SERVICE_VERSION:-latest}
+    image: ${GROUP_ID}/twitter.to.kafka.service:${TWITTER_TO_KAFKA_SERVICE_VERSION:-latest}
+    container_name: ml_twitter-to-kafka-service_${TWITTER_TO_KAFKA_SERVICE_VERSION:-latest}
     build:
       context: ../twitter-to-kafka-service
       dockerfile: ../twitter-to-kafka-service/Dockerfile
@@ -11,7 +12,7 @@ services:
       - "./docker-logs:/workspace/twitter-to-kafka-service/logs"
       - "./check-config-server-started.sh:/usr/bin/check-config-server-started.sh"
     user: root
-    entrypoint: ["check-config-server-started.sh"]
+    entrypoint: ["check-config-server-started.sh","$TWITTER_TO_KAFKA_SERVICE_VERSION"]
     depends_on:
       - config-server
       - kafka-broker-1
@@ -30,11 +31,13 @@ services:
       - "SPRING_CLOUD_CONFIG_PASSWORD=${CONFIG_SERVER_USER_PASSWORD}"
       - "SPRING_CLOUD_CONFIG_URI=http://config-server:8888"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+      - "TWITTER_TO_KAFKA_SERVICE_VERSION=${TWITTER_TO_KAFKA_SERVICE_VERSION}"
     networks:
       - ${GLOBAL_NETWORK:-services}
 
   kafka-to-elastic-service:
-    image: ${GROUP_ID}/kafka.to.elastic.service:${SERVICE_VERSION:-latest}
+    image: ${GROUP_ID}/kafka.to.elastic.service:${KAFKA_TO_ELASTIC_SERVICE_VERSION:-latest}
+    container_name: ml_kafka-to-elastic-service_${KAFKA_TO_ELASTIC_SERVICE_VERSION:-latest}
     build:
       context: ../kafka-to-elastic-service
       dockerfile: ../kafka-to-elastic-service/Dockerfile
@@ -44,7 +47,7 @@ services:
       - "./docker-logs:/workspace/kafka-to-elastic-service/logs"
       - "./check-kafka-topics-created.sh:/usr/bin/check-kafka-topics-created.sh"
     user: root
-    entrypoint: [ "check-kafka-topics-created.sh" ]
+    entrypoint: [ "check-kafka-topics-created.sh", "$KAFKA_TO_ELASTIC_SERVICE_VERSION" ]
     depends_on:
       - config-server
       - twitter-to-kafka-service
@@ -67,11 +70,13 @@ services:
       - "ELASTIC_INDEX_NAME=twitter-index"
       - "ELASTIC_CONNECTION_URL=http://elastic-1:9200"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+      - "KAFKA_TO_ELASTIC_SERVICE_VERSION=${KAFKA_TO_ELASTIC_SERVICE_VERSION}"
     networks:
       - ${GLOBAL_NETWORK:-services}
 
   config-server:
-    image: ${GROUP_ID}/config.server:${SERVICE_VERSION:-latest}
+    image: ${GROUP_ID}/config.server:${CONFIG_SERVER_SERVICE_VERSION:-latest}
+    container_name: ml_config-server_${CONFIG_SERVER_SERVICE_VERSION:-latest}
     build:
       context: ../config-server
       dockerfile: ../config-server/Dockerfile
@@ -89,5 +94,6 @@ services:
       - "SPRING_SECURITY_USER_NAME=${CONFIG_SERVER_USER_NAME}"
       - "SPRING_SECURITY_USER_PASSWORD=${CONFIG_SERVER_USER_PASSWORD}"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+      - "CONFIG_SERVER_SERVICE_VERSION=${CONFIG_SERVER_SERVICE_VERSION}"
     networks:
       - ${GLOBAL_NETWORK:-services}

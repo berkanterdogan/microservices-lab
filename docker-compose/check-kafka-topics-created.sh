@@ -15,4 +15,4 @@ while [[ ! $kafkacatResult == *"twitter-topic"* ]]; do
   kafkacatResult=$(kafkacat -L -b kafka-broker-1:9092)
 done
 
-java -jar /kafka-to-elastic-service-0.0.1-SNAPSHOT.jar
+java -jar /kafka-to-elastic-service-$1.jar

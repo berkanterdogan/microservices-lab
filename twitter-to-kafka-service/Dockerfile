@@ -29,5 +29,5 @@ ENV LANG C.UTF-8
 ENV JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto
 
 MAINTAINER berkanterdogan
-COPY target/twitter-to-kafka-service-0.0.1-SNAPSHOT.jar twitter-to-kafka-service-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java","-jar","/twitter-to-kafka-service-0.0.1-SNAPSHOT.jar"]
+COPY target/twitter-to-kafka-service-${TWITTER_TO_KAFKA_SERVICE_VERSION}.jar twitter-to-kafka-service-${TWITTER_TO_KAFKA_SERVICE_VERSION}.jar
+ENTRYPOINT ["java","-jar","/twitter-to-kafka-service-$TWITTER_TO_KAFKA_SERVICE_VERSION.jar"]

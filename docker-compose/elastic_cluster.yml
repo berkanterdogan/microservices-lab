@@ -2,6 +2,7 @@ version: '3.7'
 services:
   elastic-1:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-latest}
+    container_name: ml_elastic-1_${ELASTIC_VERSION}
     hostname: elastic-1
     environment:
       - node.name=elastic-1
@@ -22,6 +23,7 @@ services:
       - ${GLOBAL_NETWORK:-elastic}
   elastic-2:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    container_name: ml_elastic-2_${ELASTIC_VERSION}
     environment:
       - node.name=elastic-2
       - cluster.name=es-twitter-cluster
@@ -39,6 +41,7 @@ services:
       - ${GLOBAL_NETWORK:-elastic}
   elastic-3:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    container_name: ml_elastic-3_${ELASTIC_VERSION}
     environment:
       - node.name=elastic-3
       - cluster.name=es-twitter-cluster

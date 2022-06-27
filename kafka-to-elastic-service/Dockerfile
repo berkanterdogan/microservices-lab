@@ -29,5 +29,5 @@ ENV LANG C.UTF-8
 ENV JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto
 
 MAINTAINER berkanterdogan
-COPY target/kafka-to-elastic-service-0.0.1-SNAPSHOT.jar kafka-to-elastic-service-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java","-jar","/kafka-to-elastic-service-0.0.1-SNAPSHOT.jar"]
+COPY target/kafka-to-elastic-service-${KAFKA_TO_ELASTIC_SERVICE_VERSION}.jar kafka-to-elastic-service-${KAFKA_TO_ELASTIC_SERVICE_VERSION}.jar
+ENTRYPOINT ["java","-jar","/kafka-to-elastic-service-$KAFKA_TO_ELASTIC_SERVICE_VERSION.jar"]
