@@ -12,7 +12,7 @@ services:
       - "./docker-logs:/workspace/twitter-to-kafka-service/logs"
       - "./check-config-server-started.sh:/usr/bin/check-config-server-started.sh"
     user: root
-    entrypoint: ["check-config-server-started.sh","$TWITTER_TO_KAFKA_SERVICE_VERSION"]
+    entrypoint: ["check-config-server-started.sh","/twitter-to-kafka-service-$TWITTER_TO_KAFKA_SERVICE_VERSION.jar"]
     depends_on:
       - config-server
       - kafka-broker-1
@@ -95,5 +95,41 @@ services:
       - "SPRING_SECURITY_USER_PASSWORD=${CONFIG_SERVER_USER_PASSWORD}"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
       - "CONFIG_SERVER_SERVICE_VERSION=${CONFIG_SERVER_SERVICE_VERSION}"
+    networks:
+      - ${GLOBAL_NETWORK:-services}
+
+  elastic-query-service:
+    image: ${GROUP_ID}/elastic.query.service:${ELASTIC_QUERY_SERVICE_VERSION:-latest}
+    container_name: ml_elastic-query-service_${ELASTIC_QUERY_SERVICE_VERSION:-latest}
+    build:
+      context: ../elastic-query-service
+      dockerfile: ../elastic-query-service/Dockerfile
+    ports:
+      - "5008:5008"
+      - "8183:8183"
+    volumes:
+      - "./docker-logs:/workspace/elastic-query-service/logs"
+      - "./check-config-server-started.sh:/usr/bin/check-config-server-started.sh"
+    user: root
+    entrypoint: ["check-config-server-started.sh","/elastic-query-service-$ELASTIC_QUERY_SERVICE_VERSION.jar"]
+    depends_on:
+      - config-server
+      - kafka-to-elastic-service
+      - elastic-1
+      - elastic-2
+      - elastic-3
+    environment:
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5008 -Xms128m -Xmx256m"
+      - "LOGGING_LEVEL_COM_BERKANTERDOGAN_MICROSERVICES_LAB=info"
+      - "LOGGING_LEVEL_ROOT=info"
+      - "SPRING_CLOUD_CONFIG_USERNAME=${CONFIG_SERVER_USER_NAME}"
+      - "SPRING_CLOUD_CONFIG_PASSWORD=${CONFIG_SERVER_USER_PASSWORD}"
+      - "SPRING_CLOUD_CONFIG_URI=http://config-server:8888"
+      - "ELASTIC_INDEX_NAME=twitter-index"
+      - "ELASTIC_CONNECTION_URL=http://elastic-1:9200"
+      - "SERVER_PORT=8183"
+      - "SERVER_SERVLET_CONTEXT-PATH=/elastic-query-service"
+      - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+      - "ELASTIC_QUERY_SERVICE_VERSION=${ELASTIC_QUERY_SERVICE_VERSION}"
     networks:
       - ${GLOBAL_NETWORK:-services}

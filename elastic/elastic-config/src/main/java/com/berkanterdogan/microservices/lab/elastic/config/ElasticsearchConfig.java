@@ -18,7 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.Objects;
 
 @RequiredArgsConstructor
-@EnableElasticsearchRepositories(basePackages = "com.berkanterdogan.microservices.lab.elastic.index.client.repository")
+@EnableElasticsearchRepositories(basePackages = "com.berkanterdogan.microservices.lab.elastic")
 @Configuration
 public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
 
